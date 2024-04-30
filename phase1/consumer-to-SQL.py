@@ -10,7 +10,7 @@ class XactionConsumer:
         ## These are two python dictionarys
         # Ledger is the one where all the transaction get posted
         self.ledger = {}
-        # custBalances is the one where the current blance of each customer
+        # custBalances is the one where the current balance of each customer
         # account is kept.
         self.custBalances = {}
         # THE PROBLEM is every time we re-run the Consumer, ALL our customer
