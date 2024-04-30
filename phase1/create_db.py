@@ -12,16 +12,18 @@ try:
     my_cursor = connection.cursor()
 
     mySql_Create_Table_Query = """ CREATE TABLE customers (
-                            id INT PRIMARY KEY,
+                            id INT,
                             name VARCHAR(255),
                             balance DECIMAL(10,2) NOT NULL
+                            PRIMARY KEY(id)
                             )
                         
                             CREATE TABLE ledger(
-                            id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                            id INT AUTO_INCREMENT NOT NULL,
                             transaction_date INT, 
                             amount DECIMAL (10,2) NOT NULL,
                             transaction_type ENUM('deposit', 'withdrawal')
+                            PRIMARY KEY(id)
                             )"""
     result = my_cursor.execute(mySql_Create_Table_Query)
     print("tables created successfully")
