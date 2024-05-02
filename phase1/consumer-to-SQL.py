@@ -1,7 +1,8 @@
 from kafka import KafkaConsumer, TopicPartition
 from json import loads
-import mysql
 
+
+from engine_sqlite import Transaction, session
 
 class XactionConsumer:
     def __init__(self):
@@ -19,6 +20,7 @@ class XactionConsumer:
         # data gets lost!
         # add a way to connect to your database here.
 
+
         # Go back to the readme.
 
     def handleMessages(self):
@@ -35,6 +37,10 @@ class XactionConsumer:
             else:
                 self.custBalances[message['custid']] -= message['amt']
             print(self.custBalances)
+
+            t = Transaction(custid=message['custid'], type=message['type'], date=message['date'], amt=message['amt'])
+            session.add(t)
+            session.commit()
 
 
 

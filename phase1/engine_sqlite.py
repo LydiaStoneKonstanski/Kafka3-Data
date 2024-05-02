@@ -2,16 +2,13 @@ from kafka import KafkaConsumer, TopicPartition
 from sqlalchemy import Column, Integer, String, DECIMAL, create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Metadata
+from sqlalchemy import create_engine
 from json import loads
-import name_password
 
-host ='localhost',
-user = name_password.username,
-passwd = name_password.password
+
 Base = declarative_base()
 class Transaction(Base):
-    __tablename__ = 'transaction'
+    __tablename__ = 'transactions'
     id = Column(Integer, primary_key=True)
     custid = Column(Integer)
     type = Column(String(250), nullable=False)
@@ -24,7 +21,9 @@ class Transaction(Base):
         self.date = date
         self.amt = amt
 
-engine = create_engine(f'mysql://{user}:{passwd}@{host}/kafka_example')
+engine = create_engine(f'sqlite:///zipbank.sqlite')
 Base.metadata.create_all(engine)
-metadata = MetaData(bind=engine)
-session = Session()
+
+# metadata = MetaData(bind=engine)
+session = Session(bind=engine)
+
