@@ -6,10 +6,14 @@ import random
 
 class Producer:
     def __init__(self):
-        self.producer = KafkaProducer(bootstrap_servers=['localhost:9092'], value_serializer=lambda m: dumps(m).encode('ascii'))
+        self.producer = KafkaProducer(
+            bootstrap_servers=['localhost:9092'],
+            value_serializer=lambda m: dumps(m).encode('ascii')
+        )
 
     def emit(self, cust=55, type="dep"):
-        data = {'custid' : random.randint(50,56),
+        data = {
+            'custid' : random.randint(50,56),
             'type': self.depOrWth(),
             'date': int(time.time()),
             'amt': random.randint(10,101)*100,
